@@ -1,8 +1,6 @@
 @extends('admin.layouts.main')
 @section('content')
-
     <div class="container">
-
         <div class="pagetitle">
             <h1 class="mb-1">Nhà Cung Cấp</h1>
             <nav>
@@ -62,5 +60,4 @@
             </div>
         </div>
     </div>
-
 @endsection

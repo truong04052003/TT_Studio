@@ -12,7 +12,8 @@ class Category extends Model
     use HasFactory;
     use softDeletes;
 
-    public function products(){
-        return $this->hasMany(Product::class,'category_id','id');
+    public function products()
+    {
+        return $this->hasMany(Product::class);
     }
 }

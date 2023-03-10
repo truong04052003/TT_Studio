@@ -14,7 +14,7 @@ class UserPolicy
         return $user->hasPermission('viewAny');
     }
 
-    public function view(User $user, User $model)
+    public function view(User $user)
     {
         return $user->hasPermission('view');
     }
@@ -25,24 +25,24 @@ class UserPolicy
     }
 
 
-    public function update(User $user, User $model)
+    public function update(User $user)
     {
         return $user->hasPermission('update');
     }
 
-    public function delete(User $user, User $model)
+    public function delete(User $user)
     {
         return $user->hasPermission('delete');
     }
 
 
-    public function restore(User $user, User $model)
+    public function restore(User $user)
     {
         return $user->hasPermission('restore');
     }
 
 
-    public function forceDelete(User $user, User $model)
+    public function forceDelete(User $user)
     {
         return $user->hasPermission('forceDelete');
     }

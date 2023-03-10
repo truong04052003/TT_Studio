@@ -48,29 +48,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    // public function hasPermission($permission)
-    // {
-    //     $adminRoles = [
-    //         'viewAny', 'view', 'create', 'update', 'delete'
-    //     ];
-    //     $userRoles = [
-    //         'view'
-    //     ];
-    //     if ($this->admin == 1) {
-    //         $roles = $adminRoles;
-    //         // return true;
-    //     } else {
-    //         $roles = $userRoles;
-    //         // return false;
-    //     }
-    //     if (in_array($permission, $roles)) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+
     public function groups()
     {
-        return $this->belongsTo(Group::class, 'group_id', 'id');
+        return $this->belongsTo(Group::class, 'group_id', 'id')->withTrashed();
     }
 }

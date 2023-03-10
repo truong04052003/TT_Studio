@@ -40,7 +40,7 @@ class RolesSeeder extends Seeder
             ]
         );
 
-        $group = ['Category', 'Group', 'Product'];
+        $group = ['Category', 'Group', 'Product','Supplier'];
         foreach ($group as $groups) {
             DB::table('roles')->insert([
                 'name' => $groups . '_viewTrash',

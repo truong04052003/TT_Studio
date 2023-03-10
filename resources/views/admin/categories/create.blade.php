@@ -18,6 +18,8 @@
         @section('content')
             <form action="{{ route('categories.store') }}" method="post">
                 @csrf
+                <div class="card">
+                    <div class="card-body">
                 <div>
                     <h1>Thêm thể loại</h1>
                 </div>
@@ -31,6 +33,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary sm deleteIcon">Submit</button>
                 <a class="btn btn-danger btn-xs" href="{{ route('categories.index') }}">Back</a>
+                    </div>
+                </div>
+
             </form>
 
         </div>

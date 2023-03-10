@@ -18,6 +18,7 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Product::class);
         $items  = Product::with('category')->paginate(4);
         if ($key = request()->key) {
             $items  = Product::with('category')->where('name', 'like', '%' . $key . '%')->paginate(4);
@@ -26,6 +27,7 @@ class ProductController extends Controller
     }
     public function create()
     {
+        $this->authorize('create', Product::class);
         $items = Category::all();
         return view('admin.products.create', compact('items'));
     }
@@ -87,7 +89,7 @@ class ProductController extends Controller
     }
     public function edit($id)
     {
-
+        $this->authorize('update', Product::class);
         $product = Product::find($id);
         $items = Category::all();
         return view('admin.products.edit', compact('product', 'items'));
@@ -123,6 +125,7 @@ class ProductController extends Controller
     //xóa 
     public function destroy($id)
     {
+        $this->authorize('delete', Product::class);
         try {
             $products = Product::find($id);
             $products->delete();
@@ -144,6 +147,7 @@ class ProductController extends Controller
     //khôi phục
     public function restore($id)
     {
+        $this->authorize('restore', Supplier::class);
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->restore();
@@ -158,6 +162,7 @@ class ProductController extends Controller
     //xóa vĩnh viễn
     public function deleteforever($id)
     {
+        $this->authorize('deleteforever', Supplier::class);
         try {
             $softs = Product::withTrashed()->find($id);
             $softs->forceDelete();
@@ -179,7 +184,7 @@ class ProductController extends Controller
     }
     public function Excel()
     {
-        return Excel::download(new ProductExport, 'users.xlsx');
+        return Excel::download(new ProductExport, 'product.xlsx');
     }
 
  

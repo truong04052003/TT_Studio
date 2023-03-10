@@ -26,20 +26,24 @@
                                         <h2 style="text-align: center">
                                             Danh Sách Quyền
                                         </h2><br>
-                                        <a class="btn btn-primary" href="{{ route('group.create') }}"> Thêm Nhóm Quyền
+                                        @if (Auth::user()->hasPermission('Group_create'))
+                                            <a class="btn btn-info" href="{{ route('group.create') }}"> Thêm Nhóm Quyền </a>
+                                        @endif
+                                        @if (Auth::user()->hasPermission('Group_viewTrash'))
                                             <a class="btn btn-warning" href="{{ route('group.trash') }}"> Thùng rác </a>
-                                            <hr>
-
-                                        </a>
+                                        @endif
+                                        <hr>
                                         <table class="table" style="text-align: center">
                                             <thead>
                                                 <tr>
                                                     <th scope="col">STT</th>
                                                     <th scope="col">Tên Nhóm Quyền</th>
-
                                                     <th scope="col">Hiện có</th>
-
-                                                    <th scope="col">Tùy Chọn</th>
+                                                    @if (Auth::user()->hasPermission('Group_update') ||
+                                                            Auth::user()->hasPermission('Group_delete') ||
+                                                            Auth::user()->hasPermission('Group_create'))
+                                                        <th scope="col">Tùy Chọn</th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -49,22 +53,29 @@
                                                         <td>{{ $group->name }}</td>
                                                         <td>{{ count($group->users) }} Người</td>
                                                         <td>
-                                                            <a href="{{ route('group.detail', $group->id) }}"
-                                                                class='btn btn-info'>
-                                                                Trao quyền </a>
-                                                            <a href="{{ route('group.edit', $group->id) }}"
-                                                                class='btn btn-warning'>
-                                                                Sửa </a>
-                                                            <a href="">
-                                                                <form  action="{{ route('group.destroy', $group->id) }}"
-                                                                    method="post">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button
-                                                                        onclick="return confirm('Bạn có chắc chắn xóa không?');"
-                                                                        class="btn btn-danger">Xóa</button>
-                                                                </form>
-                                                            </a>
+                                                            @if (Auth::user()->hasPermission('Group_create'))
+                                                                <a href="{{ route('group.detail', $group->id) }}"
+                                                                    class='btn btn-info'>
+                                                                    Trao quyền </a>
+                                                            @endif
+                                                            @if (Auth::user()->hasPermission('Group_update'))
+                                                                <a href="{{ route('group.edit', $group->id) }}"
+                                                                    class='btn btn-warning'>
+                                                                    Sửa </a>
+                                                            @endif
+                                                            @if (Auth::user()->hasPermission('Group_delete'))
+                                                                <a href="">
+                                                                    <form action="{{ route('group.destroy', $group->id) }}"
+                                                                        method="post">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button
+                                                                            onclick="return confirm('Bạn có chắc chắn xóa không?');"
+                                                                            class="btn btn-danger">Xóa</button>
+                                                                    </form>
+                                                                </a>
+                                                            @endif
+
                                                         </td>
                                                     </tr>
                                                 @endforeach

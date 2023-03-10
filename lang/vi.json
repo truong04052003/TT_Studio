@@ -67,5 +67,6 @@
     "Supplier_update": "[Nhà Cung Cấp] Sửa",
     "Supplier_delete": "[Nhà Cung Cấp] Xóa",
     "Supplier_restore": "[Nhà Cung Cấp] Khôi phục",
-    "Supplier_deleteforever": "[Nhà Cung Cấp] Xóa Vĩnh Viễn"
+    "Supplier_deleteforever": "[Nhà Cung Cấp] Xóa Vĩnh Viễn",
+    "Supplier_viewTrash": "[Nhà Cung Cấp ] Xem Thùng Rác "
 }

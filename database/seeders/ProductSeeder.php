@@ -16,19 +16,12 @@ class ProductSeeder extends Seeder
     public function run()
     {
         DB::table('products')->insert([
-            'name' => 'iphone 14',
+            'name' => 'Mic Thu Âm AT100 + Soundcard K10',
             'price' =>  100000,
             'category_id' =>  1,
             'image' => '8879017e44544c50d3bacac1228bc4ad.jpg',
-            'description'=>'đẹp'
+            'description'=>'Âm thanh chất lượng'
         ]);
-        DB::table('products')->insert([
-            'name' => 'laptop dell',
-            'price' =>  150000,
-            'category_id' =>  1,
-            'image' => '8879017e44544c50d3bacac1228bc4ad.jpg',
-            'description'=>'đẹp'
-
-        ]);
+      
     }
 }

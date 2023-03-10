@@ -14,12 +14,13 @@ class SupplierController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorize('viewAny', Supplier::class);
         $suppliers = Supplier::all();
-
         return view('admin.suppliers.index', compact('suppliers'));
     }
     public function create()
     {
+        $this->authorize('create', Supplier::class);
         return view('admin.suppliers.create');
     }
 
@@ -43,6 +44,7 @@ class SupplierController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('update', Supplier::class);
         $item = Supplier::find($id);
         return view('admin.suppliers.edit', compact('item'));
     }
@@ -67,6 +69,7 @@ class SupplierController extends Controller
 
     public function destroy($id)
     {
+        $this->authorize('delete', Supplier::class);
         try {
             $suppliers = Supplier::find($id);
             $suppliers->delete();
@@ -81,12 +84,14 @@ class SupplierController extends Controller
 
     public function getTrashed()
     {
+        $this->authorize('trash', Supplier::class);
         $suppliers = Supplier::onlyTrashed()->get();
         return view('admin.suppliers.trash', compact('suppliers'));
     }
 
     public function restore($id)
     {
+        $this->authorize('restore', Supplier::class);
         try {
         $suppliers = Supplier::withTrashed()->find($id);
         $suppliers->restore();
@@ -101,6 +106,7 @@ class SupplierController extends Controller
 
     public function force_destroy($id)
     {
+        $this->authorize('deleteforever', Supplier::class);
         try {
         $suppliers = Supplier::withTrashed()->find($id);
         $suppliers->forceDelete();

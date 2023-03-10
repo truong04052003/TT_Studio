@@ -8,12 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    function products(){
-        return $this->belongsToMany(OrderDetail::class);
-    }
     function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+    function products(){
+        return $this->belongsToMany(OrderDetail::class);
     }
     function order_details()
     {

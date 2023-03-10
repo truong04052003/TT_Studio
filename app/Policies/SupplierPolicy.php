@@ -91,6 +91,6 @@ class SupplierPolicy
     }
     public function viewtrash(User $user)
     {
-        return $user->hasPermission('Supplier_viewTrash');
+        return $user->hasPermission('Supplier_trash');
     }
 }

@@ -34,6 +34,11 @@
                 <i class="bi bi-layout-text-window-reverse"></i><span>Quản lý đơn hàng</span><i></i>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('customers.index') }}">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Quản lý khách hàng</span><i></i>
+            </a>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('group.index') }}">
@@ -82,12 +87,7 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="http://localhost/Modul-3/Laravel/Bai5/public/products/garbagecan">
-                <i class="bi bi-question-circle"></i>
-                <span>Thùng Rác</span>
-            </a>
-        </li>
+      
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="pages-contact.html">
@@ -95,15 +95,6 @@
                 <span>Contact</span>
             </a>
         </li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-register.html">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li>
-
-
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('logout') }}">
                 <i class="bi bi-file-earmark"></i>

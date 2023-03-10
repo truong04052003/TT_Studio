@@ -18,7 +18,7 @@ class OrderDetailSeeder extends Seeder
     {
         DB::table('order_detail')->insert([
             'order_id' => 1,
-            'product_id' =>  2,
+            'product_id' =>  1,
             'quantity' => 3,
         ]);
     }

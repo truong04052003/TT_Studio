@@ -13,6 +13,7 @@ class GroupController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', Group::class);
         $groups = Group::paginate(4);
         $users = User::get();
         $param = [
@@ -23,6 +24,7 @@ class GroupController extends Controller
     }
     public function create()
     {
+        $this->authorize('create', Group::class);
         $groups = Group::all();
         return view('admin.groups.create', compact('groups'));
     }
@@ -42,27 +44,17 @@ class GroupController extends Controller
     }
     public function edit($id)
     {
+        $this->authorize('update', Group::class);
         $group = Group::find($id);
         return view('admin.groups.edit', compact('group'));
     }
     public function trash()
     {
+        $this->authorize('trash', Group::class);
         $groups = Group::onlyTrashed()->get();
         return view('admin.groups.trash', compact('groups'));
     }
-    public function restore($id)
-    {
-        $group = Group::withTrashed()->find($id);
-        try {
-            $group->restore();
-            toast('Khôi phục thành công', 'success', 'top-right');
-            return redirect()->route('group.index');
-        } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
-            return redirect()->route('group.index');
-        }
-    }
+
     public function update(Request $request, $id)
     {
         try {
@@ -79,6 +71,7 @@ class GroupController extends Controller
     }
     public function destroy($id)
     {
+        $this->authorize('delete', Group::class);
         try {
             $group = Group::find($id);
             $group->delete();
@@ -90,8 +83,23 @@ class GroupController extends Controller
             return redirect()->route('group.index');
         }
     }
+    public function restore($id)
+    {
+        $this->authorize('restore', Group::class);
+        try {
+            $group = Group::withTrashed()->find($id);
+            $group->restore();
+            toast('Khôi phục thành công', 'success', 'top-right');
+            return redirect()->route('group.index');
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            toast('Có Lỗi Xảy Ra!', 'error', 'top-right');
+            return redirect()->route('group.index');
+        }
+    }
     public function forcedelete($id)
     {
+        $this->authorize('deleteforever', Group::class);
         try {
             $group = Group::withTrashed()->find($id);
             $group->forceDelete();

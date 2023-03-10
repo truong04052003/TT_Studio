@@ -58,9 +58,9 @@
 
   </aside>
 
-  <main id="main" class="main">
-    @yield('content')
-  </main>
+    <main id="main" class="main">
+      @yield('content')
+    </main>
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

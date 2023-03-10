@@ -13,22 +13,16 @@ class UserController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', User::class);
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
 
-    // public function showAdmin()
-    // {
 
-    //     $admins = User::get();
-    //     $param = [
-    //         'admins' => $admins,
-    //     ];
-    //     return view('admin.users.admin', $param);
-    // }
 
     public function create(Request $request)
     {
+        $this->authorize('create', User::class);
         $groups = Group::all();
         $users = User::all();
         return view('admin.users.create',compact('groups', 'users'));
@@ -45,14 +39,15 @@ class UserController extends Controller
             $user->phone = $request->phone;
             $user->gender = $request->gender;
             $user->group_id = $request->group_id;
-            // $file = $request->image;
-            if ($request['image']) {
-                $file = $request['image'];
-                $fileExtension = $file->getClientOriginalExtension();
-                $fileName = time();
-                $newFileName = $fileName . '.' . $fileExtension;
-                $path = 'storage/' . $request['image']->store('images', 'public');
-                $user->image = $path;
+            if ($request->hasFile('image')) {
+                $get_image = $request->file('image');
+                $path = 'admin/uploads/';
+                $get_name_image = $get_image->getClientOriginalName();
+                $name_image = current(explode('.', $get_name_image));
+                $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
+                $get_image->move($path, $new_image);
+                $user->image = $new_image;
+                $data['product_image'] = $new_image;
             }
             $user->save();
             toast('Thêm Thành Viên Thành Công!', 'success', 'top-right');
@@ -75,6 +70,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $this->authorize('update', User::class);
         $users = User::find($id);
         $groups = Group::get();
         $param = [
@@ -95,13 +91,16 @@ class UserController extends Controller
         $user->gender = $request->gender;
         $user->group_id = $request->group_id;
         $file = $request->image;
-        if ($request['image']) {
-            $file = $request['image'];
-            $fileExtension = $file->getClientOriginalExtension();
-            $fileName = time();
-            $newFileName = $fileName . '.' . $fileExtension;
-            $path = 'storage/' . $request['image']->store('images', 'public');
-            $user->image = $path;
+        if ($request->hasFile('image')) {
+            $get_image = $request->file('image');
+            $path = 'admin/uploads/';
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.', $get_name_image));
+            $new_image = $name_image . rand(0, 99) . '.' . $get_image->getClientOriginalExtension();
+            $get_image->move($path, $new_image);
+            $user->image = $new_image;
+            $data['product_image'] = $new_image;
+        
         }
         $user->save();
         toast('Sửa nhân viên thành công', 'success', 'top-right');
@@ -114,6 +113,7 @@ class UserController extends Controller
     }
     public function destroy($id)
     {
+        $this->authorize('delete', User::class);
         try {
             $users = User::find($id);
             $users->delete();

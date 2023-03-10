@@ -39,8 +39,10 @@
                                         <h2 style="text-align:center">
                                             Nhân viên
                                         </h2>
-                                        <a class="btn btn-primary" href="{{ route('users.create') }}"> Đăng kí
-                                            tài khoản </a>
+                                        @if (Auth::user()->hasPermission('User_create'))
+                                            <a class="btn btn-primary" href="{{ route('users.create') }}"> Đăng kí
+                                                tài khoản </a>
+                                        @endif
 
                                         <hr>
                                         <table class="table"style="text-align: center">
@@ -61,7 +63,7 @@
                                                         <th scope="row">{{ $user->id }}</th>
                                                         <td>
                                                             <a href=""><img id="avt"
-                                                                    src="{{ asset($user->image) }}"></a>
+                                                                    src="{{ asset('admin/uploads/' . $user->image) }}"></a>
                                                         </td>
                                                         <td>{{ $user->name }}</td>
                                                         <td>{{ $user->groups->name }}</td>
@@ -71,12 +73,16 @@
                                                                 method="post">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <a href="{{ route('users.edit', $user->id) }}"
-                                                                    class="btn btn-warning">Sửa</a>
+                                                                @if (Auth::user()->hasPermission('User_update'))
+                                                                    <a href="{{ route('users.edit', $user->id) }}"
+                                                                        class="btn btn-warning">Sửa</a>
+                                                                @endif
+                                                                @if (Auth::user()->hasPermission('User_delete'))
+                                                                    <button
+                                                                        onclick="return confirm('Bạn có chắc chắn xóa không?');"
+                                                                        class="btn btn-danger">Xóa</button>
+                                                                @endif
 
-                                                                <button
-                                                                    onclick="return confirm('Bạn có chắc chắn xóa không?');"
-                                                                    class="btn btn-danger">Xóa</button>
                                                             </form>
                                                         </td>
                                                     </tr>

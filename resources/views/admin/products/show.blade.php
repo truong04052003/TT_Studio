@@ -41,7 +41,7 @@
                                             </tr>
                                             <tr>
                                                 <th>Ảnh sản phẩm : <br><br> <img src="{{ asset('admin/uploads/' . $productshow->image) }}"
-                                                        alt="" style="width: 550px"> </th>
+                                                        alt="" style="width: 400px"> </th>  
                                             </tr>
                                             <tr>
                                                 <th>Mô tả :{{ $productshow->description }} </th>

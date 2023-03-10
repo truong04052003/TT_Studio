@@ -84,6 +84,7 @@ class CategoryController extends Controller
     }
     public function garbagecan()
     {
+        $this->authorize('trash', Category::class);
         $softs = Category::onlyTrashed()->get();
         return view('admin.categories.trash', compact('softs'));
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboarController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ use App\Models\ProductCode;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Xuất file
+Route::get('/exportExcel', [ProductController::class, 'Excel'])->name('products.Excel');
 // LOGIN ADMIN
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
@@ -67,7 +70,7 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/deleteforever/{id}', [ProductController::class, 'deleteforever'])->name('products.deleteforever');
         Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');
         Route::post('/search', [ProductController::class, 'search'])->name('products.search');
-        Route::get('/exportExcel', [ProductController::class, 'Excel'])->name('products.Excel');
+      
     });
     //CATEGORY
     Route::prefix('categories')->group(function () {
@@ -129,4 +132,6 @@ Route::prefix('/')->middleware(['auth', 'prevent-back-history'])->group(function
         Route::get('/restore/{id}', [SupplierController::class, 'restore'])->name('suppliers.restore');
         Route::delete('/force_destroy/{id}', [SupplierController::class, 'force_destroy'])->name('suppliers.forcedelete');
     });
+     //khách hàng
+     Route::get('/customer', [CustomerController::class, 'index'])->name('customers.index');
 });

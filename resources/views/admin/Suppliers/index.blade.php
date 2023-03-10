@@ -5,9 +5,14 @@
         <div class="card">
             <div class="card-body">
                 <h2 style="text-align: center">Danh Sách Nhà Cung Cấp</h2>
-                <a class='btn btn-primary mb-2' href="{{ route('suppliers.create') }}">Thêm nhà cung cấp</a>
-                <a class='btn btn-secondary mb-2 float-right' href="{{ route('suppliers.getTrashed') }}">Thùng
-                    rác</a>
+                @if (Auth::user()->hasPermission('Supplier_create'))
+                    <a class='btn btn-primary mb-2' href="{{ route('suppliers.create') }}">Thêm nhà cung cấp</a>
+                    @endif
+                    @if (Auth::user()->hasPermission('Supplier_viewTrash'))
+                    <a class='btn btn-secondary mb-2 float-right' href="{{ route('suppliers.getTrashed') }}">Thùng
+                        rác</a>
+                    @endif
+
 
                 <table class="table table-hover">
                     <thead>
@@ -17,7 +22,9 @@
                             <th scope="col">Email</th>
                             <th scope="col">Địa chỉ</th>
                             <th scope="col">Số điện thoại</th>
+                            @if (Auth::user()->hasPermission('Supplier_update') || Auth::user()->hasPermission('Supplier_delete'))
                             <th scope="col">Tùy chọn</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody>
@@ -32,11 +39,15 @@
                                     <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="post">
                                         @method('DELETE')
                                         @csrf
-                                        <a href="{{ route('suppliers.edit', [$supplier->id]) }}"
-                                            class="btn btn-warning">Sửa</a>
+                                        @if (Auth::user()->hasPermission('Supplier_update'))
+                                            <a href="{{ route('suppliers.edit', [$supplier->id]) }}"
+                                                class="btn btn-warning">Sửa</a>
+                                        @endif
+                                        @if (Auth::user()->hasPermission('Supplier_delete'))
+                                            <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
+                                                class="btn btn-danger">Xóa</button>
+                                        @endif
 
-                                        <button onclick="return confirm('Bạn có chắc chắn xóa không?');"
-                                            class="btn btn-danger">Xóa</button>
                                     </form>
                                 </td>
                             </tr>

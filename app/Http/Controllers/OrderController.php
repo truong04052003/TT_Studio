@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrdersExport;
 use App\Models\Order;
 use App\Models\Customer;
 use App\Models\Product;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -62,6 +64,9 @@ class OrderController extends Controller
         ->select('products.*', 'order_detail.*','orders.id')
         ->where('orders.id','=',$id)->get();
         return view('admin.orders.details',compact('items'));
+    }
+    public function export(){
+        return Excel::download(new OrdersExport,'orders.xlsx');
     }
     
 }

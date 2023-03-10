@@ -14,14 +14,13 @@
                                         <thead>
                                             <h2 style="text-align: center">Danh Sách Đơn Hàng</h2><br>
 
-                                            {{-- <a href="{{ route('orders.export') }}" class="btn btn-info">Xuất file excel</a> --}}
+                                            <a href="{{ route('orders.export') }}" class="btn btn-info">Xuất file excel</a>
                                             <hr>
                                             <tr>
                                                 <th colspan="2">STT</th>
                                                 <th colspan="2">Tên</th>
                                                 <th colspan="2">Email</th>
                                                 <th colspan="2">Ngày giao</th>
-                                                {{-- <th colspan="2">Trạng thái</th> --}}
                                                 <th colspan="2">Tùy chọn</th>
 
                                             </tr>
