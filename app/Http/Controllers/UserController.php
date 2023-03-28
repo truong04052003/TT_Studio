@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $this->authorize('viewAny', User::class);
+        // $this->authorize('viewAny', User::class);
         $users = User::all();
         return view('admin.users.index', compact('users'));
     }
@@ -82,6 +82,7 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->authorize('update', User::class);
         try {
         $user = User::find($id);
         $user->name = $request->name;

@@ -11,39 +11,39 @@ class UserPolicy
  
     public function viewAny(User $user)
     {
-        return $user->hasPermission('viewAny');
+        return $user->hasPermission('User_viewAny');
     }
 
     public function view(User $user)
     {
-        return $user->hasPermission('view');
+        return $user->hasPermission('User_view');
     }
 
     public function create(User $user)
     {
-        return $user->hasPermission('create');
+        return $user->hasPermission('User_create');
     }
 
 
     public function update(User $user)
     {
-        return $user->hasPermission('update');
+        return $user->hasPermission('User_update');
     }
 
     public function delete(User $user)
     {
-        return $user->hasPermission('delete');
+        return $user->hasPermission('User_delete');
     }
 
 
     public function restore(User $user)
     {
-        return $user->hasPermission('restore');
+        return $user->hasPermission('User_restore');
     }
 
 
-    public function forceDelete(User $user)
+    public function deleteforever(User $user)
     {
-        return $user->hasPermission('forceDelete');
+        return $user->hasPermission('User_deleteforever');
     }
 }
